@@ -35,7 +35,25 @@ def test_add_1d():
 
 
 def test_sub_1d():
-    pass
+    # Subtract 1 to array of ints
+    array = Array((4,), 1, 2, 3, 4)
+    array = array - 1
+    assert array == Array((4,), 0, 1, 2, 3)
+
+    # Subtract 1 to array of floats
+    array = Array((1,), 1.8)
+    array = array - 1
+    assert array == Array((1,), 0.8)
+
+    # Subtract 1.1 to array of floats
+    array = Array((1,), 8.1)
+    array = array - 1.1
+    assert array == Array((1,), 7.0)
+
+    # Subtract array of floats to 2
+    array = Array((1,), 4.0)
+    array = 2 - array
+    assert array == Array((1,), -2.0)
 
 
 def test_mul_1d():
