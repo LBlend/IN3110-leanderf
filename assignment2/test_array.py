@@ -79,7 +79,14 @@ def test_mul_1d():
 
 
 def test_eq_1d():
-    pass
+    array = Array((4,), 1, 2, 3, 4)
+    array2 = Array((4,), 1, 2, 3, 4)
+    is_equal = array == array2
+    assert is_equal == True
+
+    array2 = Array((4,), 1, 2, 3, 5)
+    is_equal = array == array2
+    assert is_equal == False
 
 
 def test_same_1d():
@@ -95,7 +102,8 @@ def test_smallest_1d():
 
 
 def test_mean_1d():
-    pass
+    array = Array((4,), 1, 2, 3, 4)
+    assert array.mean_element() == 2.5
 
 
 # 2D tests (Task 6)
