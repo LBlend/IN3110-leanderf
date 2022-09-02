@@ -91,8 +91,15 @@ class Array:
 
         # check that the method supports the given arguments (check for data type and shape of array)
         # if the array is a boolean you should return NotImplemented
-
-        pass
+        if isinstance(other, (int, float)):
+            return list(map(lambda x: x + other, self.values))
+        elif isinstance(other, (list, tuple)):
+            if len(other) != len(self.values):
+                raise ValueError("The shape must match the existing array's shape")
+            # Do I need to check the types within the collection?
+            return list(map(lambda x, y: x + y, zip(self.values, other)))
+        else:
+            raise NotImplemented()
 
     def __radd__(self, other):
         """Element-wise adds Array with another Array or number.
@@ -107,7 +114,7 @@ class Array:
             Array: the sum as a new array.
 
         """
-        pass
+        return self.__add__(other)
 
     def __sub__(self, other):
         """Element-wise subtracts an Array or number from this Array.
@@ -122,7 +129,15 @@ class Array:
             Array: the difference as a new array.
 
         """
-        pass
+        if isinstance(other, (int, float)):
+            return list(map(lambda x: x - other, self.values))
+        elif isinstance(other, (list, tuple)):
+            if len(other) != len(self.values):
+                raise ValueError("The shape must match the existing array's shape")
+            # Do I need to check the types within the collection?
+            return list(map(lambda x, y: x - y, zip(self.values, other)))
+        else:
+            raise NotImplemented()
 
     def __rsub__(self, other):
         """Element-wise subtracts this Array from a number or Array.
@@ -137,7 +152,15 @@ class Array:
             Array: the difference as a new array.
 
         """
-        pass
+        if isinstance(other, (int, float)):
+            return list(map(lambda x: other - x, self.values))
+        elif isinstance(other, (list, tuple)):
+            if len(other) != len(self.values):
+                raise ValueError("The shape must match the existing array's shape")
+            # Do I need to check the types within the collection?
+            return list(map(lambda x, y: y - x, zip(self.values, other)))
+        else:
+            raise NotImplemented()
 
     def __mul__(self, other):
         """Element-wise multiplies this Array with a number or array.
@@ -152,7 +175,15 @@ class Array:
             Array: a new array with every element multiplied with `other`.
 
         """
-        pass
+        if isinstance(other, (int, float)):
+            return list(map(lambda x: x * other, self.values))
+        elif isinstance(other, (list, tuple)):
+            if len(other) != len(self.values):
+                raise ValueError("The shape must match the existing array's shape")
+            # Do I need to check the types within the collection?
+            return list(map(lambda x, y: x * y, zip(self.values, other)))
+        else:
+            raise NotImplemented()
 
     def __rmul__(self, other):
         """Element-wise multiplies this Array with a number or array.
@@ -215,8 +246,19 @@ class Array:
             float: The value of the smallest element in the array.
 
         """
+        try:
+            if isinstance(self.values[0], bool):
+                raise TypeError("Does not work for boolean arrays")
+        except IndexError:
+            raise IndexError("Array cannot empty")
 
-        pass
+        # return min(self.values)
+        smallest = float("inf")
+        for value in self.values:
+            if value < smallest:
+                smallest = value
+
+        return smallest
 
     def mean_element(self):
         """Returns the mean value of an array
@@ -226,5 +268,12 @@ class Array:
         Returns:
             float: the mean value
         """
+        try:
+            if isinstance(self.values[0], bool):
+                raise TypeError("Does not work for boolean arrays")
+        except IndexError:
+            raise IndexError("Array cannot be empty")
 
-        pass
+        #return mean(self.values)
+        #return sum(self.values) / len(self.values)
+        return [total := total * value for value in self.values] / len(self.values)
