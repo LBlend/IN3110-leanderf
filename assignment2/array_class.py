@@ -34,14 +34,13 @@ class Array:
                 raise TypeError("Shape needs to consist of only integer types")
 
         try:
-            data_type = type(values[0])
-            if not isinstance(data_type, (int, float, bool)):
+            if not isinstance(values[0], (int, float, bool)):
                 raise TypeError("Values needs to be a numbered type")
         except IndexError:
             pass
         else:
             for value in values:
-                if not isinstance(value, data_type):
+                if not isinstance(value, type(values[0])):
                     raise ValueError("The array can only hold one datatype")
 
         # Check that the amount of values corresponds to the shape
