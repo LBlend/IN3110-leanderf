@@ -13,7 +13,25 @@ def test_str_1d():
 
 
 def test_add_1d():
-    pass
+    # Add 1 to array of ints
+    array = Array((4,), 1, 2, 3, 4)
+    array = array + 1
+    assert array == Array((4,), 2, 3, 4, 5)
+
+    # Add 1 to array of floats
+    array = Array((4,), 1.1, 2.2, 3.3, 4.4)
+    array = array + 1
+    assert array == Array((4,), 2.1, 3.2, 4.3, 5.4)
+
+    # Add 1.1 to array of floats
+    array = Array((4,), 1.0, 2.0, 3.0, 4.0)
+    array = array + 1.1
+    assert array == Array((4,), 2.1, 3.1, 4.1, 5.1)
+
+    # Add array of floats to 2
+    array = Array((4,), 1.0, 2.0, 3.0, 4.0)
+    array = 2 + array
+    assert array == Array((4,), 3.0, 4.0, 5.0, 6.0)
 
 
 def test_sub_1d():
