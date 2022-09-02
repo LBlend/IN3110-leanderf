@@ -73,7 +73,7 @@ class Array:
             str: A string representation of the array.
 
         """
-        pass
+        return ", ".join(self.values)
 
     def __add__(self, other):
         """Element-wise adds Array with another Array or number.
