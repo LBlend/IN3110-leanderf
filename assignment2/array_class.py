@@ -214,7 +214,15 @@ class Array:
             bool: True if the two arrays are equal (identical). False otherwise.
 
         """
-        pass
+        if isinstance(other, (list, tuple)):
+            if len(other) != len(self.values):
+                return False
+            for x, y in zip(self.values, other):
+                if x != y:
+                    return False
+            return True
+        
+        return False
 
     def is_equal(self, other):
         """Compares an Array element-wise with another Array or number.
@@ -234,8 +242,14 @@ class Array:
             ValueError: if the shape of self and other are not equal.
 
         """
-
-        pass
+        if isinstance(other, (list, tuple)):
+            if len(other) != len(self.values):
+                raise ValueError("The shape must match the existing array's shape")
+            return list(map(lambda x, y: x == y, zip(self.values, other)))
+        elif isinstance(other, (int, float)):
+            return list(map(lambda x: x == other), self.values)
+        else:
+            raise TypeError("You can only compare another array or a number with the current array")
 
     def min_element(self):
         """Returns the smallest value of the array.
