@@ -57,7 +57,25 @@ def test_sub_1d():
 
 
 def test_mul_1d():
-    pass
+    # Multiply 2 to array of ints
+    array = Array((4,), 1, 2, 3, 4)
+    array = array * 2
+    assert array == Array((4,), 2, 4, 6, 8)
+
+    # Multiply 2 to array of floats
+    array = Array((1,), 2.2)
+    array = array * 2
+    assert array == Array((1,), 4.4)
+
+    # Multiply 1.1 to array of floats
+    array = Array((3,), 1.0, 2.0, 4.0)
+    array = array * 1.1
+    assert array == Array((3,), 1.1, 2.2, 4.4)
+
+    # Multiply array of floats to 2
+    array = Array((4,), 1.0, 2.0, 3.0, 4.0)
+    array = 2 * array
+    assert array == Array((4,), 2.0, 4.0, 6.0, 8.0)
 
 
 def test_eq_1d():
