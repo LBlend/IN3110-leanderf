@@ -52,6 +52,20 @@ class Array:
         self.shape = shape
         self.values = list(values)
 
+    def __getitem__(self, index):
+        """Returns the value stored at the given index in the array
+
+        Args:
+            index:
+                int: The index you want to fetch the value from.
+
+        Returns:
+            index (int): Value stored at index.
+
+        """
+
+        return self.values[index]
+
     def __str__(self):
         """Returns a nicely printable string representation of the array.
 
