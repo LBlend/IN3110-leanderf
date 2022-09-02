@@ -87,7 +87,11 @@ def test_same_1d():
 
 
 def test_smallest_1d():
-    pass
+    array = Array((4,), 1, 2, 3, 4)
+    assert array.min_element() == 1
+
+    array = Array((5,), 4, 6, -2, 3, -1)
+    assert array.min_element() == -2
 
 
 def test_mean_1d():
