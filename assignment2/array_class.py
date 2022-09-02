@@ -289,4 +289,10 @@ class Array:
 
         #return mean(self.values)
         #return sum(self.values) / len(self.values)
-        return [total := total * value for value in self.values] / len(self.values)
+        total = 0
+        for value in self.values:
+            total += value
+        
+        return total / len(self.values)
+
+
