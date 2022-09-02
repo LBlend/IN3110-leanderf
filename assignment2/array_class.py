@@ -25,13 +25,32 @@ class Array:
             ValueError: If the number of values does not fit with the shape.
         """
 
-        # Check if the values are of valid types
+        # Check types
+        if not isinstance(shape, tuple):
+            raise TypeError("Shape needs to be a tuple")
+
+        for value in shape:
+            if not isinstance(value, int):
+                raise TypeError("Shape needs to consist of only integer types")
+
+        try:
+            data_type = type(values[0])
+            if not isinstance(data_type, (int, float, bool)):
+                raise TypeError("Values needs to be a numbered type")
+        except IndexError:
+            pass
+        else:
+            for value in values:
+                if not isinstance(value, data_type):
+                    raise ValueError("The array can only hold one datatype")
 
         # Check that the amount of values corresponds to the shape
+        if len(values) != shape[0]:
+            raise ValueError("The number of values given must match the given shape.")
 
         # Set class-variables
-
-        pass
+        self.shape = shape
+        self.values = list(values)
 
     def __str__(self):
         """Returns a nicely printable string representation of the array.
