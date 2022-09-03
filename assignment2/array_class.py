@@ -35,7 +35,7 @@ class Array:
 
         try:
             if not isinstance(values[0], (int, float, bool)):
-                raise TypeError("Values needs to be a numbered type")
+                raise TypeError("Values needs to be a numbered or a boolean type")
         except IndexError:
             pass
         else:
