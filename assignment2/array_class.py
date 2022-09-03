@@ -44,12 +44,24 @@ class Array:
                     raise ValueError("The array can only hold one datatype")
 
         # Check that the amount of values corresponds to the shape
-        if len(values) != shape[0]:
+        product = 1
+        for number_of_items in shape:
+            product *= number_of_items
+        if len(values) != product:
             raise ValueError("The number of values given must match the given shape.")
 
         # Set class-variables
+        self.__flattened_values = list(values)
         self.shape = shape
-        self.values = list(values)
+        if len(shape) == 1:
+            self.values = self.__flattened_values
+        else:
+            self.values = []
+            number_of_items = 0
+            for _ in range(self.shape[0]):
+                end_index = number_of_items + self.shape[1]
+                self.values.append(self.__flattened_values[number_of_items:end_index])
+                number_of_items += self.shape[1]
 
     def __getitem__(self, index):
         """Returns the value stored at the given index in the array
