@@ -3,6 +3,7 @@ Tests for our array class
 """
 
 from array_class import Array
+import pytest
 
 # 1D tests (Task 4)
 
@@ -38,6 +39,14 @@ def test_add_1d():
     array = array + Array((4,), 5, 2, 4, 10)
     assert array == Array((4,), 6, 4, 7, 14)
 
+    # Test for exceptions
+    with pytest.raises(ValueError):
+        array = Array((4,), 1.0, 2.0, 3.0, 4.0)
+        array = array + Array((5,), 5, 2, 4, 10, 11)
+    with pytest.raises(NotImplementedError):
+        array = Array((4,), 1.0, 2.0, 3.0, 4.0)
+        array = array + "yeet"
+
 
 def test_sub_1d():
     # Subtract 1 to array of ints
@@ -64,6 +73,14 @@ def test_sub_1d():
     array = Array((4,), 1.0, 2.0, 3.0, 4.0)
     array = array - Array((4,), 5, 2, 4, 10)
     assert array == Array((4,), -4, 0, -1, -6)
+
+    # Test for exceptions
+    with pytest.raises(ValueError):
+        array = Array((4,), 1.0, 2.0, 3.0, 4.0)
+        array = array - Array((5,), 5, 2, 4, 10, 11)
+    with pytest.raises(NotImplementedError):
+        array = Array((4,), 1.0, 2.0, 3.0, 4.0)
+        array = array - "yeet"
 
 
 def test_mul_1d():
@@ -92,6 +109,14 @@ def test_mul_1d():
     array = array * Array((4,), 5, 2, 4, 10)
     assert array == Array((4,), 5, 4, 12, 40)
 
+    # Test for exceptions
+    with pytest.raises(ValueError):
+        array = Array((4,), 1.0, 2.0, 3.0, 4.0)
+        array = array * Array((5,), 5, 2, 4, 10, 11)
+    with pytest.raises(NotImplementedError):
+        array = Array((4,), 1.0, 2.0, 3.0, 4.0)
+        array = array * "yeet"
+
 
 def test_eq_1d():
     array = Array((4,), 1, 2, 3, 4)
@@ -101,6 +126,13 @@ def test_eq_1d():
 
     array2 = Array((4,), 1, 2, 3, 5)
     is_equal = array == array2
+    assert is_equal is False
+
+    array2 = Array((2,), 1, 2)
+    is_equal = array == array2
+    assert is_equal is False
+
+    is_equal = array == "yeet"
     assert is_equal is False
 
 
@@ -113,6 +145,15 @@ def test_same_1d():
     assert array.is_equal(array2) == Array((4,), 1, 1, 0, 1)
     assert array.is_equal(array2) == Array((4,), True, True, False, True)
 
+    assert array.is_equal(1) == Array((4,), 1, 0, 0, 0)
+
+    # Test for exceptions
+    with pytest.raises(ValueError):
+        array2 = Array((5,), 1, 2, 42, 4, 10)
+        array.is_equal(array2)
+    with pytest.raises(TypeError):
+        array.is_equal([1, 2, 42, 4])
+
 
 def test_smallest_1d():
     array = Array((4,), 1, 2, 3, 4)
@@ -121,10 +162,20 @@ def test_smallest_1d():
     array = Array((5,), 4, 6, -2, 3, -1)
     assert array.min_element() == -2
 
+    # Test for exceptions
+    with pytest.raises(TypeError):
+        array = Array((4,), True, False, True, False)
+        array.min_element()
+
 
 def test_mean_1d():
     array = Array((4,), 1, 2, 3, 4)
     assert array.mean_element() == 2.5
+
+    # Test for exceptions
+    with pytest.raises(TypeError):
+        array = Array((4,), True, False, True, False)
+        array.mean_element()
 
 
 # 2D tests (Task 6)
