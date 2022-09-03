@@ -96,7 +96,7 @@ class Array:
             if other.shape != self.shape:
                 raise ValueError("The shape must match the existing array's shape")
             # Do I need to check the types within the collection?
-            new_array = list(map(lambda x, y: x + y, zip(self.values, other)))
+            new_array = list(map(lambda x: x[0] + x[1], zip(self.values, other)))
         else:
             raise NotImplemented()
 
@@ -136,7 +136,7 @@ class Array:
             if other.shape != self.shape:
                 raise ValueError("The shape must match the existing array's shape")
             # Do I need to check the types within the collection?
-            new_array = list(map(lambda x, y: x - y, zip(self.values, other)))
+            new_array = list(map(lambda x: x[0] - x[1], zip(self.values, other)))
         else:
             raise NotImplemented()
 
@@ -161,7 +161,7 @@ class Array:
             if other.shape != self.shape:
                 raise ValueError("The shape must match the existing array's shape")
             # Do I need to check the types within the collection?
-            new_array = list(map(lambda x, y: y - x, zip(self.values, other)))
+            new_array = list(map(lambda x: x[1] - x[0], zip(self.values, other)))
         else:
             raise NotImplemented()
 
@@ -186,7 +186,7 @@ class Array:
             if other.shape != self.shape:
                 raise ValueError("The shape must match the existing array's shape")
             # Do I need to check the types within the collection?
-            new_array = list(map(lambda x, y: x * y, zip(self.values, other)))
+            new_array = list(map(lambda x: x[0] * x[1], zip(self.values, other)))
         else:
             raise NotImplemented()
 
@@ -252,7 +252,7 @@ class Array:
         if isinstance(other, Array):
             if other.shape != self.shape:
                 raise ValueError("The shape must match the existing array's shape")
-            new_array = list(map(lambda x, y: x == y, zip(self.values, other)))
+            new_array = list(map(lambda x: x[0] == x[1], zip(self.values, other)))
         elif isinstance(other, (int, float)):
             new_array = list(map(lambda x: x == other), self.values)
         else:
