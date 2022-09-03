@@ -33,6 +33,11 @@ def test_add_1d():
     array = 2 + array
     assert array == Array((4,), 3.0, 4.0, 5.0, 6.0)
 
+    # Add array with another array
+    array = Array((4,), 1.0, 2.0, 3.0, 4.0)
+    array = array + Array((4,), 5, 2, 4, 10)
+    assert array == Array((4,), 6, 4, 7, 14)
+
 
 def test_sub_1d():
     # Subtract 1 to array of ints
@@ -55,6 +60,11 @@ def test_sub_1d():
     array = 2 - array
     assert array == Array((1,), -2.0)
 
+    # Subtract array with another array
+    array = Array((4,), 1.0, 2.0, 3.0, 4.0)
+    array = array - Array((4,), 5, 2, 4, 10)
+    assert array == Array((4,), -4, 0, -1, -6)
+
 
 def test_mul_1d():
     # Multiply 2 to array of ints
@@ -76,6 +86,11 @@ def test_mul_1d():
     array = Array((4,), 1.0, 2.0, 3.0, 4.0)
     array = 2 * array
     assert array == Array((4,), 2.0, 4.0, 6.0, 8.0)
+
+    # Multiply array with another array
+    array = Array((4,), 1.0, 2.0, 3.0, 4.0)
+    array = array * Array((4,), 5, 2, 4, 10)
+    assert array == Array((4,), 5, 4, 12, 40)
 
 
 def test_eq_1d():
