@@ -102,7 +102,7 @@ class Array:
 
         Raises:
             ValueError: If the shape of the given array does not match the instance's one
-            NotImplemented: If a value that is not an int, float or Array is passed to the funciton.
+            NotImplementedError If a value that is not an int, float or Array is passed to the funciton.
 
         """
 
@@ -116,7 +116,7 @@ class Array:
             # Do I need to check the types within the collection?
             new_array = list(map(lambda x: x[0] + x[1], zip(self.__flattened_values, other.__flattened_values)))
         else:
-            raise NotImplemented()
+            raise NotImplementedError()
 
         return Array(self.shape, *new_array)
 
@@ -150,7 +150,7 @@ class Array:
 
         Raises:
             ValueError: If the shape of the given array does not match the instance's one
-            NotImplemented: If a value that is not an int, float or Array is passed to the funciton.
+            NotImplementedError If a value that is not an int, float or Array is passed to the funciton.
 
         """
 
@@ -162,7 +162,7 @@ class Array:
             # Do I need to check the types within the collection?
             new_array = list(map(lambda x: x[0] - x[1], zip(self.__flattened_values, other.__flattened_values)))
         else:
-            raise NotImplemented()
+            raise NotImplementedError()
 
         return Array(self.shape, *new_array)
 
@@ -180,7 +180,7 @@ class Array:
 
         Raises:
             ValueError: If the shape of the given array does not match the instance's one
-            NotImplemented: If a value that is not an int, float or Array is passed to the funciton.
+            NotImplementedError If a value that is not an int, float or Array is passed to the funciton.
 
         """
 
@@ -192,7 +192,7 @@ class Array:
             # Do I need to check the types within the collection?
             new_array = list(map(lambda x: x[1] - x[0], zip(self.__flattened_values, other.__flattened_values)))
         else:
-            raise NotImplemented()
+            raise NotImplementedError()
 
         return Array(self.shape, *new_array)
 
@@ -210,7 +210,7 @@ class Array:
 
         Raises:
             ValueError: If the shape of the given array does not match the instance's one
-            NotImplemented: If a value that is not an int, float or Array is passed to the funciton.
+            NotImplementedError If a value that is not an int, float or Array is passed to the funciton.
 
         """
 
@@ -222,7 +222,7 @@ class Array:
             # Do I need to check the types within the collection?
             new_array = list(map(lambda x: x[0] * x[1], zip(self.__flattened_values, other.__flattened_values)))
         else:
-            raise NotImplemented()
+            raise NotImplementedError()
 
         return Array(self.shape, *new_array)
 
@@ -240,7 +240,7 @@ class Array:
 
         Raises:
             ValueError: If the shape of the given array does not match the instance's one
-            NotImplemented: If a value that is not an int, float or Array is passed to the funciton.
+            NotImplementedError If a value that is not an int, float or Array is passed to the funciton.
 
         """
 
