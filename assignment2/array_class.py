@@ -296,7 +296,7 @@ class Array:
                 raise ValueError("The shape must match the existing array's shape")
             new_array = list(map(lambda x: x[0] == x[1], zip(self.__flattened_values, other.__flattened_values)))
         elif isinstance(other, (int, float)):
-            new_array = list(map(lambda x: x == other), self.__flattened_values)
+            new_array = list(map(lambda x: x == other, self.__flattened_values))
         else:
             raise TypeError("You can only compare another array or a number with the current array")
 
