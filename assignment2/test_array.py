@@ -9,7 +9,7 @@ from array_class import Array
 
 def test_str_1d():
     array = Array((4,), 1, 2, 3, 4)
-    assert str(array) == "1, 2, 3, 4"
+    assert str(array) == "[1, 2, 3, 4]"
 
 
 def test_add_1d():
