@@ -97,11 +97,11 @@ def test_eq_1d():
     array = Array((4,), 1, 2, 3, 4)
     array2 = Array((4,), 1, 2, 3, 4)
     is_equal = array == array2
-    assert is_equal == True
+    assert is_equal is True
 
     array2 = Array((4,), 1, 2, 3, 5)
     is_equal = array == array2
-    assert is_equal == False
+    assert is_equal is False
 
 
 def test_same_1d():
@@ -132,71 +132,70 @@ def test_mean_1d():
 
 def test_add_2d():
     # Add 1 to array of ints
-    array = Array((2,2), 1, 2, 3, 4)
+    array = Array((2, 2), 1, 2, 3, 4)
     array = array + 1
-    assert array == Array((2,2), 2, 3, 4, 5)
+    assert array == Array((2, 2), 2, 3, 4, 5)
 
     # Add 1 to array of floats
-    array = Array((2,2), 1.1, 2.2, 3.3, 4.4)
+    array = Array((2, 2), 1.1, 2.2, 3.3, 4.4)
     array = array + 1
-    assert array == Array((2,2), 2.1, 3.2, 4.3, 5.4)
+    assert array == Array((2, 2), 2.1, 3.2, 4.3, 5.4)
 
     # Add 1.1 to array of floats
-    array = Array((2,2), 1.0, 2.0, 3.0, 4.0)
+    array = Array((2, 2), 1.0, 2.0, 3.0, 4.0)
     array = array + 1.1
-    assert array == Array((2,2), 2.1, 3.1, 4.1, 5.1)
+    assert array == Array((2, 2), 2.1, 3.1, 4.1, 5.1)
 
     # Add array of floats to 2
-    array = Array((2,2), 1.0, 2.0, 3.0, 4.0)
+    array = Array((2, 2), 1.0, 2.0, 3.0, 4.0)
     array = 2 + array
-    assert array == Array((2,2), 3.0, 4.0, 5.0, 6.0)
+    assert array == Array((2, 2), 3.0, 4.0, 5.0, 6.0)
 
     # Add array with another array
-    array = Array((2,2), 1.0, 2.0, 3.0, 4.0)
-    array = array + Array((2,2), 5, 2, 4, 10)
-    assert array == Array((2,2), 6, 4, 7, 14)
+    array = Array((2, 2), 1.0, 2.0, 3.0, 4.0)
+    array = array + Array((2, 2), 5, 2, 4, 10)
+    assert array == Array((2, 2), 6, 4, 7, 14)
 
 
 def test_mult_2d():
     # Multiply 2 to array of ints
-    array = Array((2,2), 1, 2, 3, 4)
+    array = Array((2, 2), 1, 2, 3, 4)
     array = array * 2
-    assert array == Array((2,2), 2, 4, 6, 8)
+    assert array == Array((2, 2), 2, 4, 6, 8)
 
     # Multiply 2 to array of floats
-    array = Array((2,1), 2.2, 2.2)
+    array = Array((2, 1), 2.2, 2.2)
     array = array * 2
-    assert array == Array((2,1), 4.4, 4.4)
+    assert array == Array((2, 1), 4.4, 4.4)
 
     # Multiply 1.1 to array of floats
-    array = Array((3,1), 1.0, 2.0, 4.0)
+    array = Array((3, 1), 1.0, 2.0, 4.0)
     array = array * 1.1
-    assert array == Array((3,1), 1.1, 2.2, 4.4)
+    assert array == Array((3, 1), 1.1, 2.2, 4.4)
 
     # Multiply array of floats to 2
-    array = Array((2,2), 1.0, 2.0, 3.0, 4.0)
+    array = Array((2, 2), 1.0, 2.0, 3.0, 4.0)
     array = 2 * array
-    assert array == Array((2,2), 2.0, 4.0, 6.0, 8.0)
+    assert array == Array((2, 2), 2.0, 4.0, 6.0, 8.0)
 
     # Multiply array with another array
-    array = Array((2,2), 1.0, 2.0, 3.0, 4.0)
-    array = array * Array((2,2), 5, 2, 4, 10)
-    assert array == Array((2,2), 5, 4, 12, 40)
-
+    array = Array((2, 2), 1.0, 2.0, 3.0, 4.0)
+    array = array * Array((2, 2), 5, 2, 4, 10)
+    assert array == Array((2, 2), 5, 4, 12, 40)
 
 
 def test_same_2d():
-    array = Array((2,2), 1, 2, 3, 4)
-    array2 = Array((2,2), 1, 2, 3, 4)
-    assert array.is_equal(array2) == Array((2,2), 1, 1, 1, 1)
+    array = Array((2, 2), 1, 2, 3, 4)
+    array2 = Array((2, 2), 1, 2, 3, 4)
+    assert array.is_equal(array2) == Array((2, 2), 1, 1, 1, 1)
 
-    array2 = Array((2,2), 1, 2, 42, 4)
-    assert array.is_equal(array2) == Array((2,2), 1, 1, 0, 1)
-    assert array.is_equal(array2) == Array((2,2), True, True, False, True)
+    array2 = Array((2, 2), 1, 2, 42, 4)
+    assert array.is_equal(array2) == Array((2, 2), 1, 1, 0, 1)
+    assert array.is_equal(array2) == Array((2, 2), True, True, False, True)
 
 
 def test_mean_2d():
-    array = Array((2,2), 1, 2, 3, 4)
+    array = Array((2, 2), 1, 2, 3, 4)
     assert array.mean_element() == 2.5
 
 
