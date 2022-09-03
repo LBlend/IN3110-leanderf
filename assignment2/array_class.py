@@ -267,8 +267,7 @@ class Array:
         if isinstance(other, Array):
             if other.shape != self.shape:
                 raise ValueError("The shape must match the existing array's shape")
-            other = self.__flatten(other)
-            new_array = list(map(lambda x: x[0] == x[1], zip(self.__flattened_values, other)))
+            new_array = list(map(lambda x: x[0] == x[1], zip(self.__flattened_values, other.__flattened_values)))
         elif isinstance(other, (int, float)):
             new_array = list(map(lambda x: x == other), self.__flattened_values)
         else:
@@ -320,16 +319,3 @@ class Array:
             total += value
 
         return total / len(self.__flattened_values)
-
-    def __flatten(self, array):
-        """Flattens the N-dimensional array of values into a 1-dimensional array.
-
-        Args:
-            array (Array): array to flatten.
-
-        Returns:
-            list: flat list of array values.
-        """
-        for _ in range(len(self.shape[1:])):
-            array = list(chain(*array))
-        return array
