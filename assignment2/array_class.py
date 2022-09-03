@@ -2,6 +2,9 @@
 Array class for assignment 2
 """
 
+from itertools import chain
+
+
 class Array:
 
     def __init__(self, shape, *values):
@@ -316,3 +319,16 @@ class Array:
             total += value
 
         return total / len(self.__flattened_values)
+
+    def __flatten(self, array):
+        """Flattens the N-dimensional array of values into a 1-dimensional array.
+
+        Args:
+            array (Array): array to flatten.
+
+        Returns:
+            list: flat list of array values.
+        """
+        for _ in range(len(self.shape[1:])):
+            array = list(chain(*array))
+        return array
