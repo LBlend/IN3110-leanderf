@@ -124,14 +124,17 @@ def test_eq_1d():
     is_equal = array == array2
     assert is_equal is True
 
+    array = Array((4,), 1, 2, 3, 4)
     array2 = Array((4,), 1, 2, 3, 5)
     is_equal = array == array2
     assert is_equal is False
 
+    array = Array((4,), 1, 2, 3, 4)
     array2 = Array((2,), 1, 2)
     is_equal = array == array2
     assert is_equal is False
 
+    array = Array((4,), 1, 2, 3, 4)
     is_equal = array == "yeet"
     assert is_equal is False
 
@@ -141,6 +144,7 @@ def test_same_1d():
     array2 = Array((4,), 1, 2, 3, 4)
     assert array.is_equal(array2) == Array((4,), 1, 1, 1, 1)
 
+    array = Array((4,), 1, 2, 3, 4)
     array2 = Array((4,), 1, 2, 42, 4)
     assert array.is_equal(array2) == Array((4,), 1, 1, 0, 1)
     assert array.is_equal(array2) == Array((4,), True, True, False, True)
@@ -240,6 +244,7 @@ def test_same_2d():
     array2 = Array((2, 2), 1, 2, 3, 4)
     assert array.is_equal(array2) == Array((2, 2), 1, 1, 1, 1)
 
+    array = Array((2, 2), 1, 2, 3, 4)
     array2 = Array((2, 2), 1, 2, 42, 4)
     assert array.is_equal(array2) == Array((2, 2), 1, 1, 0, 1)
     assert array.is_equal(array2) == Array((2, 2), True, True, False, True)
