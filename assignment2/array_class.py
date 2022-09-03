@@ -91,14 +91,16 @@ class Array:
         # check that the method supports the given arguments (check for data type and shape of array)
         # if the array is a boolean you should return NotImplemented
         if isinstance(other, (int, float)):
-            return list(map(lambda x: x + other, self.values))
-        elif isinstance(other, (list, tuple)):
-            if len(other) != len(self.values):
+            new_array = list(map(lambda x: x + other, self.values))
+        elif isinstance(other, Array):
+            if other.shape != self.shape:
                 raise ValueError("The shape must match the existing array's shape")
             # Do I need to check the types within the collection?
-            return list(map(lambda x, y: x + y, zip(self.values, other)))
+            new_array = list(map(lambda x, y: x + y, zip(self.values, other)))
         else:
             raise NotImplemented()
+
+        return Array(self.shape, *new_array)
 
     def __radd__(self, other):
         """Element-wise adds Array with another Array or number.
@@ -129,14 +131,16 @@ class Array:
 
         """
         if isinstance(other, (int, float)):
-            return list(map(lambda x: x - other, self.values))
-        elif isinstance(other, (list, tuple)):
-            if len(other) != len(self.values):
+            new_array = list(map(lambda x: x - other, self.values))
+        elif isinstance(other, Array):
+            if other.shape != self.shape:
                 raise ValueError("The shape must match the existing array's shape")
             # Do I need to check the types within the collection?
-            return list(map(lambda x, y: x - y, zip(self.values, other)))
+            new_array = list(map(lambda x, y: x - y, zip(self.values, other)))
         else:
             raise NotImplemented()
+
+        return Array(self.shape, *new_array)
 
     def __rsub__(self, other):
         """Element-wise subtracts this Array from a number or Array.
@@ -152,14 +156,16 @@ class Array:
 
         """
         if isinstance(other, (int, float)):
-            return list(map(lambda x: other - x, self.values))
-        elif isinstance(other, (list, tuple)):
-            if len(other) != len(self.values):
+            new_array = list(map(lambda x: other - x, self.values))
+        elif isinstance(other, Array):
+            if other.shape != self.shape:
                 raise ValueError("The shape must match the existing array's shape")
             # Do I need to check the types within the collection?
-            return list(map(lambda x, y: y - x, zip(self.values, other)))
+            new_array = list(map(lambda x, y: y - x, zip(self.values, other)))
         else:
             raise NotImplemented()
+
+        return Array(self.shape, *new_array)
 
     def __mul__(self, other):
         """Element-wise multiplies this Array with a number or array.
@@ -175,14 +181,16 @@ class Array:
 
         """
         if isinstance(other, (int, float)):
-            return list(map(lambda x: x * other, self.values))
-        elif isinstance(other, (list, tuple)):
-            if len(other) != len(self.values):
+            new_array = list(map(lambda x: x * other, self.values))
+        elif isinstance(other, Array):
+            if other.shape != self.shape:
                 raise ValueError("The shape must match the existing array's shape")
             # Do I need to check the types within the collection?
-            return list(map(lambda x, y: x * y, zip(self.values, other)))
+            new_array = list(map(lambda x, y: x * y, zip(self.values, other)))
         else:
             raise NotImplemented()
+
+        return Array(self.shape, *new_array)
 
     def __rmul__(self, other):
         """Element-wise multiplies this Array with a number or array.
@@ -213,8 +221,8 @@ class Array:
             bool: True if the two arrays are equal (identical). False otherwise.
 
         """
-        if isinstance(other, (list, tuple)):
-            if len(other) != len(self.values):
+        if isinstance(other, Array):
+            if other.shape != self.shape:
                 return False
             for x, y in zip(self.values, other):
                 if x != y:
@@ -241,14 +249,16 @@ class Array:
             ValueError: if the shape of self and other are not equal.
 
         """
-        if isinstance(other, (list, tuple)):
-            if len(other) != len(self.values):
+        if isinstance(other, Array):
+            if other.shape != self.shape:
                 raise ValueError("The shape must match the existing array's shape")
-            return list(map(lambda x, y: x == y, zip(self.values, other)))
+            new_array = list(map(lambda x, y: x == y, zip(self.values, other)))
         elif isinstance(other, (int, float)):
-            return list(map(lambda x: x == other), self.values)
+            new_array = list(map(lambda x: x == other), self.values)
         else:
             raise TypeError("You can only compare another array or a number with the current array")
+
+        return Array(self.shape, *new_array)
 
     def min_element(self):
         """Returns the smallest value of the array.
@@ -294,5 +304,3 @@ class Array:
             total += value
         
         return total / len(self.values)
-
-
