@@ -90,7 +90,13 @@ def test_eq_1d():
 
 
 def test_same_1d():
-    pass
+    array = Array((4,), 1, 2, 3, 4)
+    array2 = Array((4,), 1, 2, 3, 4)
+    assert array.is_equal(array2) == Array((4,), 1, 1, 1, 1)
+
+    array2 = Array((4,), 1, 2, 42, 4)
+    assert array.is_equal(array2) == Array((4,), 1, 1, 0, 1)
+    assert array.is_equal(array2) == Array((4,), True, True, False, True)
 
 
 def test_smallest_1d():
