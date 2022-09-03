@@ -311,16 +311,12 @@ class Array:
             float: The value of the smallest element in the array.
 
         Raises:
-            IndexError: if the array is empty
             TypeError: if the method is called from a boolean array
 
         """
 
-        try:
-            if isinstance(self.__flattened_values[0], bool):
-                raise TypeError("Does not work for boolean arrays")
-        except IndexError:
-            raise IndexError("Array cannot empty")
+        if isinstance(self.__flattened_values[0], bool):
+            raise TypeError("Does not work for boolean arrays")
 
         # return min(self.__values)
         smallest = float("inf")
@@ -339,16 +335,12 @@ class Array:
             float: the mean value
 
         Raises:
-            IndexError: if the array is empty
             TypeError: if the method is called from a boolean array
 
         """
 
-        try:
-            if isinstance(self.__values[0], bool):
-                raise TypeError("Does not work for boolean arrays")
-        except IndexError:
-            raise IndexError("Array cannot be empty")
+        if isinstance(self.__values[0], bool):
+            raise TypeError("Does not work for boolean arrays")
 
         # return mean(self.__values)
         # return sum(self.__values) / len(self.__values)
