@@ -57,13 +57,13 @@ class Array:
         self.__flattened_values = list(values)
         self.shape = shape
         if len(shape) == 1:
-            self.values = self.__flattened_values
+            self.__values = self.__flattened_values
         else:
-            self.values = []
+            self.__values = []
             number_of_items = 0
             for _ in range(self.shape[0]):
                 end_index = number_of_items + self.shape[1]
-                self.values.append(self.__flattened_values[number_of_items:end_index])
+                self.__values.append(self.__flattened_values[number_of_items:end_index])
                 number_of_items += self.shape[1]
 
     def __getitem__(self, index):
@@ -78,7 +78,7 @@ class Array:
 
         """
 
-        return self.values[index]
+        return self.__values[index]
 
     def __str__(self):
         """Returns a nicely printable string representation of the array.
@@ -87,7 +87,7 @@ class Array:
             str: A string representation of the array.
 
         """
-        return str(self.values)
+        return str(self.__values)
 
     def __add__(self, other):
         """Element-wise adds Array with another Array or number.
@@ -239,7 +239,7 @@ class Array:
         if isinstance(other, Array):
             if other.shape != self.shape:
                 return False
-            for x, y in zip(self.values, other):
+            for x, y in zip(self.__values, other):
                 if x != y:
                     return False
             return True
@@ -290,7 +290,7 @@ class Array:
         except IndexError:
             raise IndexError("Array cannot empty")
 
-        # return min(self.values)
+        # return min(self.__values)
         smallest = float("inf")
         for value in self.__flattened_values:
             if value < smallest:
@@ -307,13 +307,13 @@ class Array:
             float: the mean value
         """
         try:
-            if isinstance(self.values[0], bool):
+            if isinstance(self.__values[0], bool):
                 raise TypeError("Does not work for boolean arrays")
         except IndexError:
             raise IndexError("Array cannot be empty")
 
-        #return mean(self.values)
-        #return sum(self.values) / len(self.values)
+        #return mean(self.__values)
+        #return sum(self.__values) / len(self.__values)
         total = 0
         for value in self.__flattened_values:
             total += value
