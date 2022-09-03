@@ -100,6 +100,10 @@ class Array:
         Returns:
             Array: the sum as a new array.
 
+        Raises:
+            ValueError: If the shape of the given array does not match the instance's one
+            NotImplemented: If a value that is not an int, float or Array is passed to the funciton.
+
         """
 
         # check that the method supports the given arguments (check for data type and shape of array)
@@ -144,6 +148,10 @@ class Array:
         Returns:
             Array: the difference as a new array.
 
+        Raises:
+            ValueError: If the shape of the given array does not match the instance's one
+            NotImplemented: If a value that is not an int, float or Array is passed to the funciton.
+
         """
 
         if isinstance(other, (int, float)):
@@ -169,6 +177,10 @@ class Array:
 
         Returns:
             Array: the difference as a new array.
+
+        Raises:
+            ValueError: If the shape of the given array does not match the instance's one
+            NotImplemented: If a value that is not an int, float or Array is passed to the funciton.
 
         """
 
@@ -196,6 +208,10 @@ class Array:
         Returns:
             Array: a new array with every element multiplied with `other`.
 
+        Raises:
+            ValueError: If the shape of the given array does not match the instance's one
+            NotImplemented: If a value that is not an int, float or Array is passed to the funciton.
+
         """
 
         if isinstance(other, (int, float)):
@@ -221,6 +237,10 @@ class Array:
 
         Returns:
             Array: a new array with every element multiplied with `other`.
+
+        Raises:
+            ValueError: If the shape of the given array does not match the instance's one
+            NotImplemented: If a value that is not an int, float or Array is passed to the funciton.
 
         """
 
@@ -267,6 +287,7 @@ class Array:
 
         Raises:
             ValueError: if the shape of self and other are not equal.
+            TypeError: if the type passed in is not an int, float or Array.
 
         """
 
@@ -288,6 +309,10 @@ class Array:
 
         Returns:
             float: The value of the smallest element in the array.
+
+        Raises:
+            IndexError: if the array is empty
+            TypeError: if the method is called from a boolean array
 
         """
 
@@ -312,6 +337,10 @@ class Array:
 
         Returns:
             float: the mean value
+
+        Raises:
+            IndexError: if the array is empty
+            TypeError: if the method is called from a boolean array
 
         """
 
