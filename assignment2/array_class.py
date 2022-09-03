@@ -282,14 +282,14 @@ class Array:
 
         """
         try:
-            if isinstance(self.values[0], bool):
+            if isinstance(self.__flattened_values[0], bool):
                 raise TypeError("Does not work for boolean arrays")
         except IndexError:
             raise IndexError("Array cannot empty")
 
         # return min(self.values)
         smallest = float("inf")
-        for value in self.values:
+        for value in self.__flattened_values:
             if value < smallest:
                 smallest = value
 
@@ -312,7 +312,7 @@ class Array:
         #return mean(self.values)
         #return sum(self.values) / len(self.values)
         total = 0
-        for value in self.values:
+        for value in self.__flattened_values:
             total += value
-        
-        return total / len(self.values)
+
+        return total / len(self.__flattened_values)
