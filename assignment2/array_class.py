@@ -2,11 +2,8 @@
 Array class for assignment 2
 """
 
-from itertools import chain
-
 
 class Array:
-
     def __init__(self, shape, *values):
         """Initialize an array of 1-dimensionality. Elements can only be of type:
 
@@ -26,6 +23,7 @@ class Array:
             TypeError: If "shape" or "values" are of the wrong type.
             ValueError: If the values are not all of the same type.
             ValueError: If the number of values does not fit with the shape.
+
         """
 
         # Check types
@@ -87,6 +85,7 @@ class Array:
             str: A string representation of the array.
 
         """
+
         return str(self.__values)
 
     def __add__(self, other):
@@ -130,6 +129,7 @@ class Array:
             Array: the sum as a new array.
 
         """
+
         return self.__add__(other)
 
     def __sub__(self, other):
@@ -145,6 +145,7 @@ class Array:
             Array: the difference as a new array.
 
         """
+
         if isinstance(other, (int, float)):
             new_array = list(map(lambda x: x - other, self.__flattened_values))
         elif isinstance(other, Array):
@@ -170,6 +171,7 @@ class Array:
             Array: the difference as a new array.
 
         """
+
         if isinstance(other, (int, float)):
             new_array = list(map(lambda x: other - x, self.__flattened_values))
         elif isinstance(other, Array):
@@ -195,6 +197,7 @@ class Array:
             Array: a new array with every element multiplied with `other`.
 
         """
+
         if isinstance(other, (int, float)):
             new_array = list(map(lambda x: x * other, self.__flattened_values))
         elif isinstance(other, Array):
@@ -220,6 +223,7 @@ class Array:
             Array: a new array with every element multiplied with `other`.
 
         """
+
         # Hint: this solution/logic applies for all r-methods
         return self.__mul__(other)
 
@@ -236,6 +240,7 @@ class Array:
             bool: True if the two arrays are equal (identical). False otherwise.
 
         """
+
         if isinstance(other, Array):
             if other.shape != self.shape:
                 return False
@@ -243,7 +248,7 @@ class Array:
                 if x != y:
                     return False
             return True
-        
+
         return False
 
     def is_equal(self, other):
@@ -264,6 +269,7 @@ class Array:
             ValueError: if the shape of self and other are not equal.
 
         """
+
         if isinstance(other, Array):
             if other.shape != self.shape:
                 raise ValueError("The shape must match the existing array's shape")
@@ -284,6 +290,7 @@ class Array:
             float: The value of the smallest element in the array.
 
         """
+
         try:
             if isinstance(self.__flattened_values[0], bool):
                 raise TypeError("Does not work for boolean arrays")
@@ -305,15 +312,17 @@ class Array:
 
         Returns:
             float: the mean value
+
         """
+
         try:
             if isinstance(self.__values[0], bool):
                 raise TypeError("Does not work for boolean arrays")
         except IndexError:
             raise IndexError("Array cannot be empty")
 
-        #return mean(self.__values)
-        #return sum(self.__values) / len(self.__values)
+        # return mean(self.__values)
+        # return sum(self.__values) / len(self.__values)
         total = 0
         for value in self.__flattened_values:
             total += value
