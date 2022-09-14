@@ -18,7 +18,7 @@ dependencies = [
     "numpy",
     "Pillow",
     "numba",
-    "line_profiler"
+    "line-profiler"
 ]
 
 
