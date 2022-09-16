@@ -14,10 +14,8 @@ def numpy_color2gray(image: np.array) -> np.array:
     """
 
     gray_image = np.empty_like(image)
+    gray_image = np.dot(image, [0.21, 0.72, 0.07])
 
-    # Hint: use numpy slicing in order to have fast vectorized code
-    ...
-    # Return image (make sure it's the right type!)
     return gray_image
 
 
@@ -57,3 +55,10 @@ def numpy_color2sepia(image: np.array, k: Optional[float] = 1) -> np.array:
 
     # Return image (make sure it's the right type!)
     return sepia_image
+
+
+if __name__ == '__main__':
+    from instapy import io
+    image = io.read_image(filename='assignment3/test_image.jpg')
+    gray_image = numpy_color2gray(image)
+    io.display(gray_image)
