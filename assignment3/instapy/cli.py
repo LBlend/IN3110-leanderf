@@ -7,7 +7,8 @@ import numpy as np
 from PIL import Image
 
 import instapy
-from . import io
+from __init__ import get_filter
+from instapy.io import display, write_image
 
 
 def run_filter(
@@ -18,21 +19,23 @@ def run_filter(
     scale: int = 1,
 ) -> None:
     """Run the selected filter"""
+    
     # load the image from a file
-    image = ...
+    image = Image.open(file)
     if scale != 1:
-        # Resize image, if needed
-        ...
+        image = image.resize((image.width // 2, image.height // 2))
+    
+    image = np.asarray(image)  # Convert to numpy array
 
     # Apply the filter
-    ...
-    filtered = ...
+    filter_function = get_filter(filter=filter, implementation=implementation)
+    filtered = filter_function(image)
+    
     if out_file:
-        # save the file
-        ...
+        write_image(filtered, out_file)
     else:
         # not asked to save, display it instead
-        io.display(filtered)
+        display(filtered)
 
 
 def main(argv=None):
