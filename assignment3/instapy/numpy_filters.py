@@ -60,8 +60,8 @@ def numpy_color2sepia(image: np.array, k: Optional[float] = 1) -> np.array:
 if __name__ == '__main__':
     from instapy import io
     image = io.read_image(filename='assignment3/test_image.jpg')
-    #gray_image = numpy_color2gray(image)
-    #io.display(gray_image)
+    gray_image = numpy_color2gray(image)
+    io.display(gray_image)
 
     sepia_image = numpy_color2sepia(image)
     io.display(sepia_image)
