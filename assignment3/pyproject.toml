@@ -16,7 +16,7 @@ description = "A package that turns your images into nostalgic memories."
 readme = "README.md"
 dependencies = [
     "numpy",
-    "Pillow",
+    "pillow",
     "numba",
     "line-profiler"
 ]
