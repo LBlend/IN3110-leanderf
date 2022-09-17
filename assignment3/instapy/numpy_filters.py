@@ -40,18 +40,18 @@ def numpy_color2sepia(image: np.array, k: Optional[float] = 1) -> np.array:
         # validate k (optional)
         raise ValueError(f"k must be between [0-1], got {k=}")
 
-    sepia_image = ...
+    sepia_matrix = np.array([
+        [ 0.393, 0.769, 0.189],
+        [ 0.349, 0.686, 0.168],
+        [ 0.272, 0.534, 0.131],
+    ])
 
-    # define sepia matrix (optional: with `k` tuning parameter for bonus task 13)
-    sepia_matrix = ...
+    #sepia_image = np.average(image, weights=sepia_matrix, axis=(1, 1))
 
-    # HINT: For version without adaptive sepia filter, use the same matrix as in the pure python implementation
-    # use Einstein sum to apply pixel transform matrix
-    # Apply the matrix filter
-    sepia_image = ...
-
-    # Check which entries have a value greater than 255 and set it to 255 since we can not display values bigger than 255
-    ...
+    sepia_image = np.dot(image, sepia_matrix.T)
+    sepia_image /= sepia_image.max()  # Scale down to 0-1
+    sepia_image *= 255  # Scale up to rgb range
+    sepia_image = sepia_image.astype(np.uint8)
 
     # Return image (make sure it's the right type!)
     return sepia_image
@@ -60,5 +60,8 @@ def numpy_color2sepia(image: np.array, k: Optional[float] = 1) -> np.array:
 if __name__ == '__main__':
     from instapy import io
     image = io.read_image(filename='assignment3/test_image.jpg')
-    gray_image = numpy_color2gray(image)
-    io.display(gray_image)
+    #gray_image = numpy_color2gray(image)
+    #io.display(gray_image)
+
+    sepia_image = numpy_color2sepia(image)
+    io.display(sepia_image)
