@@ -7,7 +7,8 @@ import numpy as np
 from PIL import Image
 
 from instapy import get_filter
-from instapy.io import display, write_image
+from instapy.io import display, read_image, write_image
+from instapy.timing import time_one
 
 
 def run_filter(
@@ -73,14 +74,23 @@ def main(argv=None):
                         help='Scale factor to resize image')
     parser.add_argument('-i', '--implementation', choices=['python', 'numba', 'numpy'], default='numpy',
                         help='The implementation')
+    parser.add_argument('-r', '--runtime', default='numpy', action='store_true',
+                        help='Time the average runtime of the filter (3 runs)')
 
     # parse arguments and call run_filter
     args = parser.parse_args()
-
     image_filter = args.gray if args.gray else args.sepia
     if not args.out:
         args.out = f"{args.file}_{image_filter}.jpg"  # Naive. Doesn't remove the original file extension nor the path but oh well. I'm lazy
     
+    # Bonus task. Implement runtime flag
+    if args.runtime:
+        image = read_image(args.file)
+        if args.scale != 1:
+            image = image.resize((image.width // args.scale, image.height // args.scale))
+        runtime = time_one(get_filter(image_filter, args.implementation), image, calls=3)
+        print(f"Average time over 3 runs: {runtime / 1_000_000_000:.2f}s")
+
     run_filter(
         file=args.file,
         out_file=args.out,
