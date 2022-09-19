@@ -5,7 +5,7 @@ Can be executed as `python3 -m instapy.timing`
 
 For Task 6.
 """
-from __init__ import get_filter
+from instapy import get_filter
 from instapy.io import read_image
 import numpy as np
 import time
