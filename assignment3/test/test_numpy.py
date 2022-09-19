@@ -4,8 +4,9 @@ import numpy.testing as nt
 
 
 def test_color2gray(image, reference_gray):
-    ...
-
+    grayscale = numpy_color2gray(image)
+    nt.assert_allclose(grayscale, reference_gray)
 
 def test_color2sepia(image, reference_sepia):
-    ...
+    sepia = numpy_color2sepia(image)
+    nt.assert_allclose(sepia, reference_sepia)
