@@ -19,16 +19,11 @@ def time_one(filter_function: Callable, *arguments, calls: int = 3) -> float:
     and return the average.
 
     Args:
-        filter_function (callable):
-            The filter function to time
-        *arguments:
-            Arguments to pass to filter_function
-        calls (int):
-            The number of times to call the function,
-            for measurement
+        filter_function (callable): The filter function to time
+        *arguments: Arguments to pass to filter_function
+        calls (int): The number of times to call the function, for measurement
     Returns:
-        time (float):
-            The average time (in seconds) to run filter_function(*arguments)
+        time (float): The average time (in seconds) to run filter_function(*arguments)
     """
     timings = []
     for _ in range(calls):

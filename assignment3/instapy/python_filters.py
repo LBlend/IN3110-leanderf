@@ -9,13 +9,13 @@ def python_color2gray(image: np.array) -> np.array:
     DOES NOT SUPPORT ALPHA CHANNELS
 
     Args:
-        image (np.array)
+        image (np.array): Image in array format
     Returns:
         np.array: gray_image
     """
     gray_image = np.empty_like(image)
+    
     # iterate through the pixels, and apply the grayscale transform
-
     for row in range(image.shape[0]):  # height
         for col in range(image.shape[1]):  # width
             red, green, blue = image[row][col]
@@ -29,7 +29,7 @@ def python_color2sepia(image: np.array) -> np.array:
     """Convert rgb pixel array to sepia
 
     Args:
-        image (np.array)
+        image (np.array): Image in array format
     Returns:
         np.array: sepia_image
     """

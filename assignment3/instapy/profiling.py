@@ -18,7 +18,6 @@ def profile_with_cprofile(filter, image, ncalls=3):
     Statistics will be printed to stdout.
 
     Args:
-
         filter (callable): filter function
         image (ndarray): image to filter
         ncalls (int): number of repetitions to measure
@@ -38,7 +37,6 @@ def profile_with_line_profiler(filter, image, ncalls=3):
     Statistics will be printed to stdout.
 
     Args:
-
         filter (callable): filter function
         image (ndarray): image to filter
         ncalls (int): number of repetitions to measure
@@ -57,7 +55,6 @@ def run_profiles(profiler: str = "cprofile"):
     """Run profiles of every implementation
 
     Args:
-
         profiler (str): either 'line_profiler' or 'cprofile'
     """
     # Select which profile function to use

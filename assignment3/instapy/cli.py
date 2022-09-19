@@ -17,7 +17,15 @@ def run_filter(
     filter: str = "color2gray",
     scale: int = 1,
 ) -> None:
-    """Run the selected filter"""
+    """Run the selected filter
+    
+    Args:
+        file (str): The file to apply filter to
+        out_file (str: The output filename. by default None
+        implementation (str): The implementation, by default "python"
+        filter (str): The filter to apply, by default "color2gray"
+        scale (int): The scale factor to resize the image, by default 1
+    """
     
     # load the image from a file
     image = Image.open(file)
@@ -38,7 +46,11 @@ def run_filter(
 
 
 def main(argv=None):
-    """Parse the command-line and call run_filter with the arguments"""
+    """Parse the command-line and call run_filter with the arguments
+    
+    Args:
+        argv (list, optional): The command-line arguments. Defaults to None.
+    """
     if argv is None:
         argv = sys.argv[1:]
 
