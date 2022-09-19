@@ -13,8 +13,9 @@ def numpy_color2gray(image: np.array) -> np.array:
         np.array: gray_image
     """
 
-    gray_image = np.empty_like(image)
     gray_image = np.dot(image, [0.21, 0.72, 0.07])
+    np.repeat(gray_image[:, :, np.newaxis], 3, axis=2)
+    gray_image.astype(np.uint8)
 
     return gray_image
 
@@ -59,7 +60,7 @@ def numpy_color2sepia(image: np.array, k: Optional[float] = 1) -> np.array:
 
 if __name__ == '__main__':
     from instapy import io
-    image = io.read_image(filename='assignment3/test_image.jpg')
+    image = io.read_image(filename='assignment3/test/rain.jpg')
     gray_image = numpy_color2gray(image)
     io.display(gray_image)
 
