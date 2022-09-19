@@ -55,7 +55,7 @@ def make_reports(filename: str = "test/rain.jpg", calls: int = 3):
     print(report_image_data)
 
     # iterate through the filters
-    filter_names = ["color2gray"]
+    filter_names = ["color2gray", "color2sepia"]
     # filter_names = ["color2gray", "color2sepia"]
     for filter_name in filter_names:
         # get the reference filter function
