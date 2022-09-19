@@ -54,12 +54,12 @@ def numba_color2sepia(image: np.array) -> np.array:
 
 if __name__ == '__main__':
     from instapy import io
-    image = io.read_image(filename='assignment3/test_image.jpg')
+    image = io.read_image(filename='assignment3/test/test_image.jpg')
     gray_image = numba_color2gray(image)
     io.display(gray_image)
 
     # Test 2 images because of numba's inherent cold start compilation
-    image2 = io.read_image(filename='assignment3/test_image2.jpg')
+    image2 = io.read_image(filename='assignment3/test/test_image2.jpg')
     gray_image2 = numba_color2gray(image2)
     io.display(gray_image2)
 
