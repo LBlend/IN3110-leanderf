@@ -17,8 +17,11 @@ def test_color2gray(image):
 
 def test_color2sepia(image):
     # run color2sepia
-    ...
+    sepia = python_color2sepia(image)
+
     # check that the result has the right shape, type
-    ...
+    assert sepia.shape == image.shape
+    assert sepia.dtype == image.dtype
+
     # verify some individual pixel samples
     # according to the sepia matrix
