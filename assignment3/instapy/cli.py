@@ -31,7 +31,7 @@ def run_filter(
     # load the image from a file
     image = Image.open(file)
     if scale != 1:
-        image = image.resize((image.width // 2, image.height // 2))
+        image = image.resize((image.width // scale, image.height // scale))
     
     image = np.asarray(image)  # Convert to numpy array
 
