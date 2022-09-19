@@ -6,8 +6,7 @@ import sys
 import numpy as np
 from PIL import Image
 
-import instapy
-from __init__ import get_filter
+from instapy import get_filter
 from instapy.io import display, write_image
 
 
@@ -46,11 +45,34 @@ def main(argv=None):
     parser = argparse.ArgumentParser()
 
     # filename is positional and required
-    parser.add_argument("file", help="The filename to apply filter to")
-    parser.add_argument("-o", "--out", help="The output filename")
+    parser.add_argument("file", type=str,
+                        help="The filename to apply filter to")
 
-    # Add required arguments
-    ...
+    parser.add_argument('-o', '--out', type=str,
+                        help='The output filename')
+    
+    filter_group = parser.add_mutually_exclusive_group(required=True)
+    filter_group.add_argument('-g', '--gray', action='store_const', const='color2gray',
+                        help='Select gray filter')
+    filter_group.add_argument('-se', '--sepia', action='store_const', const='color2sepia',
+                        help='Select sepia filter')
+
+    parser.add_argument('-sc', '--scale', type=int, nargs=1, default=1,
+                        help='Scale factor to resize image')
+    parser.add_argument('-i', '--implementation', choices=['python', 'numba', 'numpy'], default='numpy',
+                        help='The implementation')
 
     # parse arguments and call run_filter
-    ...
+    args = parser.parse_args()
+
+    image_filter = args.gray if args.gray else args.sepia
+    if not args.out:
+        args.out = f"{args.file}_{image_filter}.jpg"  # Naive. Doesn't remove the original file extension nor the path but oh well. I'm lazy
+    
+    run_filter(
+        file=args.file,
+        out_file=args.out,
+        implementation=args.implementation,
+        filter=image_filter,
+        scale=args.scale
+    )
