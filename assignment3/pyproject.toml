@@ -23,4 +23,4 @@ dependencies = [
 
 
 [project.scripts]
-instapy = "instapy:main"
+instapy = "instapy.cli:main"
