@@ -20,13 +20,15 @@ def get_html(url: str, params: Optional[Dict] = None, output: Optional[str] = No
             The HTML of the page, as text.
     """
     # passing the optional parameters argument to the get function
-    response = ...
+    response = requests.get(url, params=params)
 
-    html_str = ...
+    html_str = response.text
 
     if output:
         # if output is specified, the response txt and url get printed to a
         # txt file with the name in `output`
-        ...
+        with open(f"{output}",  "w", encoding="utf-8") as f:
+            f.write(f"{url}\n{html_str}")
+        return None
 
     return html_str
