@@ -1,5 +1,4 @@
 import re
-from urllib.parse import urljoin
 
 ## -- Task 2 -- ##
 
@@ -17,16 +16,30 @@ def find_urls(
     """
     # create and compile regular expression(s)
 
-    urls = ...
-    # 1. find all the anchor tags, then
-    # 2. find the urls href attributes
+    #urls = re.findall("(https?:\/\/\w+\.\w+(\w+|[\.%&?\-=+\/])+)|((?<=src=\").+(?=\"))", html)
+    # Yes, this is terrible, I know
+    normal_urls = re.findall(r"https?:\/\/\w+\.\w+[\w+-=&\/?\.%]*", html)
+    #href_urls = re.findall(r"(?<=href=\")[\/|\w|\.|\-|\:]+", html)
+    #src_urls = re.findall(r"(?<=src=\")[\/|\w|\.|\-|\:]+", html)
+    href_urls = re.findall(r"(?<=href=\")\/+[\/|\.|\-|\:|\w]+", html)
+    src_urls = re.findall(r"(?<=src=\")\/+[\/|\.|\-|\:|\w]+", html)
+
+    href_urls = list(map(lambda url: re.sub(r"^\/\/", "https://", url), href_urls))
+    href_urls = list(map(lambda url: re.sub(r"^\/.*", base_url + url, url), href_urls))
+    
+    src_urls = list(map(lambda url: re.sub(r"^\/\/", "https://", url), src_urls))
+    src_urls = list(map(lambda url: re.sub(r"^\/.*", base_url + url, url), src_urls))
+
+    tag_urls = href_urls + src_urls
+    all_urls = set(normal_urls + tag_urls)
 
     # Write to file if requested
     if output:
         print(f"Writing to: {output}")
-        ...
+        with open(output, "w") as f:
+            f.write("\n".join(all_urls))
 
-    ...
+    return all_urls
 
 
 def find_articles(html: str, output=None) -> set:
@@ -36,14 +49,14 @@ def find_articles(html: str, output=None) -> set:
     returns:
         - (set) : a set with urls to all the articles found
     """
-    urls = ...
-    pattern = ...
-    articles = ...
+    urls = find_urls(html)
+    articles = set(filter(lambda url: re.search(r"https?:\/\/\w+\.\wikipedia.org\/wiki[\w+-=&\/?\.%]*", url), urls))
 
     # Write to file if wanted
     if output:
-        ...
-    ...
+        with open(output, "w") as f:
+            f.write("\n".join(articles))
+    return articles
 
 
 ## Regex example
