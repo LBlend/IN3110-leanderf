@@ -121,7 +121,9 @@ def render_schedule(data: pd.DataFrame) -> str:
         """
         return event_types.get(type_key[:2], type_key)
 
-    ...
+    data.update(data.get("Type").apply(expand_event_type))
+
+    return data.to_markdown()
 
 
 def strip_text(text: str) -> str:
