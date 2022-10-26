@@ -6,6 +6,7 @@ import bs4
 import pandas as pd
 from bs4 import BeautifulSoup
 from requesting_urls import get_html
+import requests
 
 ## --- Task 5, 6, and 7 ---- ##
 
@@ -30,12 +31,12 @@ def time_plan(url: str) -> str:
         markdown (str) : string containing the markdown schedule
     """
     # Get the page
-    html = ...
+    html = requests.get(url).text
     # parse the HTML
-    soup = ...
+    soup = BeautifulSoup(html, "html.parser")
     # locate the table
-    calendar = ...
-    soup_table = ...
+    calendar = soup.find(id="Calendar")
+    soup_table = calendar.find_next("table")
     # extract events into pandas data frame
     df = extract_events(soup_table)
 
@@ -68,16 +69,16 @@ def extract_events(table: bs4.element.Tag) -> pd.DataFrame:
     data = []
 
     # Extracts the data in table, keeping track of colspan and rowspan
-    rows = ...
+    rows = table.find_all("tr")
     rows = rows[1:]
     for tr in rows:
-        cells = ...
+        cells = tr.find_all("td")
         row = []
         for cell in cells:
-            colspan = ...
-            rowspan = ...
-            ...
-            text = ...
+            colspan = int(cell.get("colspan", 1))
+            rowspan = int(cell.get("rowspan", 1))
+            text = cell.text.strip()
+
             row.append(
                 TableEntry(
                     text=text,
@@ -89,14 +90,17 @@ def extract_events(table: bs4.element.Tag) -> pd.DataFrame:
     # at this point `data` should be a table (list of lists)
     # where each item is a TableEntry with row/colspan properties
     # expand TableEntries into a dense table
-    all_data = expand_row_col_span(data)
+    data = expand_row_col_span(data)
 
     # List of desired columns
-    wanted = ...
+    wanted = ["Date", "Venue", "Type"]
 
     # Filter data and create pandas dataframe
-    filtered_data = filter_data(labels, all_data, wanted)
-    df = ...
+    df = pd.DataFrame(data, columns=labels)
+    for col in df.columns:
+        print(col)
+        if col not in wanted:
+            df.drop(col, axis=1, inplace=True)
 
     return df
 
