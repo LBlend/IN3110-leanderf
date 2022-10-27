@@ -195,7 +195,6 @@ def get_players(team_url: str) -> list:
         # Get the columns
         cols = row.find_all("td")
         # find name links (a tags)
-        print(f"{cols=}")
         a_tag = cols[2].find("a")
         # and add to players a dict with
         # {'name':, 'url':}
