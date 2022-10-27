@@ -222,27 +222,34 @@ def get_player_stats(player_url: str, team: str) -> dict:
     print(f"Fetching stats for player in {player_url}")
 
     # Get the table with stats
-    html = ...
-    soup = ...
-    table = ...
+    html = get_html(player_url)
+    soup = BeautifulSoup(html, "html.parser")
+    table = soup.find(id="Regular_season").find_next("table")
 
-    ...
-    stats = ...
+    stats = {}
 
-    rows = ...
+    rows = table.find_all("tr")
+    rows = rows[1:]
 
     # Loop over rows and extract the stats
     for row in rows:
-        cols = ...
-        ...
+        cols = row.find_all("td")
         # Check correct team (some players change team within season)
-        ...
+        season_a_tag = cols[0].find("a")
+        if season_a_tag and season_a_tag.text.strip() != "2021–22":
+            continue
+
+        team_a_tag = cols[1].find("a")
+        if team_a_tag and team_a_tag.text.strip() != team:
+            continue
 
         # load stats from columns
         # keys should be 'points', 'assists', etc.
-        ...
+        stats["rebounds"] = float(cols[8].text.strip().replace("*", ""))
+        stats["assists"] = float(cols[9].text.strip().replace("*", ""))
+        stats["points"] = float(cols[12].text.strip().replace("*", ""))
 
-    return stats
+        return stats
 
 
 # run the whole thing if called as a script, for quick testing
