@@ -98,9 +98,13 @@ def extract_events(table: bs4.element.Tag) -> pd.DataFrame:
     # Filter data and create pandas dataframe
     df = pd.DataFrame(data, columns=labels)
     for col in df.columns:
-        print(col)
         if col not in wanted:
             df.drop(col, axis=1, inplace=True)
+
+    for i, row in enumerate(df.get("Date")):
+        if not re.match(r"[1-9][0-9]\s\w+\s\d{4}", row):
+            df.drop(index=i, axis=0, inplace=True)
+            
 
     return df
 
