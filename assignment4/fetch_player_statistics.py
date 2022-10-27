@@ -183,23 +183,31 @@ def get_players(team_url: str) -> list:
     print(f"Finding players in {team_url}")
 
     # Get the table
-    html = ...
-    soup = ...
-    table = ...
+    html = get_html(team_url)
+    soup = BeautifulSoup(html, "html.parser")
+    table = soup.find(id="Roster").find_next("table").find_next("table")
 
     players = []
     # Loop over every row and get the names from roster
-    rows = ...
+    rows = table.find_all("tr")
+    rows = rows[1:]
     for row in rows:
         # Get the columns
-        cols = ...
+        cols = row.find_all("td")
         # find name links (a tags)
+        print(f"{cols=}")
+        a_tag = cols[2].find("a")
         # and add to players a dict with
         # {'name':, 'url':}
-        ...
+        if a_tag:
+            players.append(
+                {
+                    "name": a_tag.text.strip(),
+                    "url": urljoin(base_url, a_tag["href"]),
+                }
+            )
 
     # return list of players
-
     return players
 
 
