@@ -33,17 +33,28 @@ def find_best_players(url: str) -> None:
     returns:
         - None
     """
-    # gets the teams
     teams = get_teams(url)
-    # assert len(teams) == 8
 
     # Gets the player for every team and stores in dict (get_players)
-    all_players = ...
+    all_players = {}
+    for team in teams:
+        all_players[team["name"]] = get_players(team["url"])
 
     # get player statistics for each player,
     # using get_player_stats
+    player_stats = {}
     for team, players in all_players.items():
-        ...
+        player_stats[team] = []
+        for player in players:
+            stats = get_player_stats(player["url"], team)
+
+            if not stats:  # In case I'm not returning any stats, which happens due to inconsisten wiki pages
+                continue
+
+            for stat_name, stat_value in stats.items():
+                player[stat_name] = stat_value
+
+            player_stats[team].append(player)
 
     # at this point, we should have a dict of the form:
     # {
@@ -61,13 +72,12 @@ def find_best_players(url: str) -> None:
 
     # Select top 3 for each team by points:
     best = {}
-    top_stat = ...
-    for team, players in all_players.items():
+    for team, players in player_stats.items():
         # Sort and extract top 3 based on points
-        top_3 = ...
-        ...
+        top_3 = sorted(players, key=itemgetter("points"), reverse=True)[:3]
+        best[team] = top_3
 
-    stats_to_plot = ...
+    stats_to_plot = ["points", "assists", "rebounds"]
     for stat in stats_to_plot:
         plot_best(best, stat=stat)
 
