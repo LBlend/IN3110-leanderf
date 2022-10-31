@@ -223,23 +223,31 @@ def get_player_stats(player_url: str, team: str) -> dict:
     # Get the table with stats
     html = get_html(player_url)
     soup = BeautifulSoup(html, "html.parser")
-    table = soup.find(id="Regular_season").find_next("table")
+
+    # Find table - Handle inconsistent wikipedia pages
+    starting_point = soup.find(id="Regular_season")
+    if starting_point is None:
+        starting_point = soup.find(id="NBA")
+    table = starting_point.find_next("table")
 
     stats = {}
 
     rows = table.find_all("tr")
-    rows = rows[1:]
-
     # Loop over rows and extract the stats
-    for row in rows:
+    for row in rows[1:]:
         cols = row.find_all("td")
+
         # Check correct team (some players change team within season)
         season_a_tag = cols[0].find("a")
-        if season_a_tag and season_a_tag.text.strip() != "2021–22":
+        # Check if season is found, then strip and skip if not correct season
+        # If correct season, skip if season_a_tag is None. This is in order to skip "Career" rows and so on.
+        if season_a_tag and season_a_tag.text.strip() != "2021–22" or not season_a_tag:	
             continue
 
         team_a_tag = cols[1].find("a")
-        if team_a_tag and team_a_tag.text.strip() != team:
+        # Check if team is found, then strip and skip if not correct team
+        # If correct team, skip if team_a_tag is None. This is in order to skip "Career" rows and so on.
+        if team_a_tag and team_a_tag.text.strip() != team or not team_a_tag:
             continue
 
         # load stats from columns
