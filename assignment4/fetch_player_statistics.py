@@ -227,8 +227,7 @@ def get_players(team_url: str) -> list:
     players = []
     # Loop over every row and get the names from roster
     rows = table.find_all("tr")
-    rows = rows[1:]
-    for row in rows:
+    for row in rows[1:]:
         # Get the columns
         cols = row.find_all("td")
         # find name links (a tags)
