@@ -108,7 +108,34 @@ def plot_best(best: Dict[str, List[Dict]], stat: str = "points") -> None:
             Should be a key in the player info dictionary.
     """
     stats_dir = "NBA_player_statistics"
-    ...
+    os.makedirs(stats_dir, exist_ok=True)
+
+    teams = list(best.keys())
+    best_players = [best[team][0] for team in teams]
+    second_players = [best[team][1] for team in teams]
+    third_players = [best[team][2] for team in teams]
+
+    plt.figure(figsize=(8, 12))
+    x = np.arange(len(teams))
+    width = 0.2
+
+    best_bars = plt.bar(x-width, [player[stat] for player in best_players], width)
+    second_bars = plt.bar(x, [player[stat] for player in second_players], width)
+    third_bars = plt.bar(x+width, [player[stat] for player in third_players], width)
+
+    plt.bar_label(best_bars, labels=[player["name"] for player in best_players], rotation=90, padding=5)
+    plt.bar_label(second_bars, labels=[player["name"] for player in second_players], rotation=90, padding=5)
+    plt.bar_label(third_bars, labels=[player["name"] for player in third_players], rotation=90, padding=5)
+
+    plt.title(f"{stat} for top 3 players in all teams")
+    plt.legend(title=f"Player ranking within team based on {stat}", labels=["Best", "Second", "Third"])
+    plt.xlabel("Teams")
+    plt.ylabel(stat)
+    plt.grid(True)
+    plt.xticks(x, teams, rotation=60)
+    plt.ylim(0, 1.5 * plt.ylim()[1])
+
+    plt.savefig(os.path.join(stats_dir, f"{stat}.png"))
 
 
 def get_teams(url: str) -> list:
