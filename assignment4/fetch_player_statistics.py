@@ -277,7 +277,7 @@ def get_player_stats(player_url: str, team: str) -> dict:
         season_a_tag = cols[0].find("a")
         # Check if season is found, then strip and skip if not correct season
         # If correct season, skip if season_a_tag is None. This is in order to skip "Career" rows and so on.
-        if season_a_tag and season_a_tag.text.strip() != "2021–22" or not season_a_tag:	
+        if season_a_tag and season_a_tag.text.strip() != "2021–22" or not season_a_tag:
             continue
 
         team_a_tag = cols[1].find("a")

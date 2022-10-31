@@ -16,17 +16,14 @@ def find_urls(
     """
     # create and compile regular expression(s)
 
-    #urls = re.findall("(https?:\/\/\w+\.\w+(\w+|[\.%&?\-=+\/])+)|((?<=src=\").+(?=\"))", html)
     # Yes, this is terrible, I know
     normal_urls = re.findall(r"https?:\/\/\w+\.\w+[\w+-=&\/?\.%]*", html)
-    #href_urls = re.findall(r"(?<=href=\")[\/|\w|\.|\-|\:]+", html)
-    #src_urls = re.findall(r"(?<=src=\")[\/|\w|\.|\-|\:]+", html)
     href_urls = re.findall(r"(?<=href=\")\/+[\/|\.|\-|\:|\w]+", html)
     src_urls = re.findall(r"(?<=src=\")\/+[\/|\.|\-|\:|\w]+", html)
 
     href_urls = list(map(lambda url: re.sub(r"^\/\/", "https://", url), href_urls))
     href_urls = list(map(lambda url: re.sub(r"^\/.*", base_url + url, url), href_urls))
-    
+
     src_urls = list(map(lambda url: re.sub(r"^\/\/", "https://", url), src_urls))
     src_urls = list(map(lambda url: re.sub(r"^\/.*", base_url + url, url), src_urls))
 
@@ -59,7 +56,7 @@ def find_articles(html: str, output=None) -> set:
     return articles
 
 
-## Regex example
+# Regex example
 def find_img_src(html: str):
     """Find all src attributes of img tags in an HTML string
 
