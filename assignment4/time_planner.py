@@ -66,12 +66,12 @@ def extract_events(table: bs4.element.Tag) -> pd.DataFrame:
     # Gets the table headers and saves their labels in `keys`
     headings = table.find_all("th")
     labels = [th.text.strip() for th in headings]
+    
     data = []
 
     # Extracts the data in table, keeping track of colspan and rowspan
     rows = table.find_all("tr")
-    rows = rows[1:]
-    for tr in rows:
+    for tr in rows[1:]:
         cells = tr.find_all("td")
         row = []
         for cell in cells:
@@ -86,7 +86,9 @@ def extract_events(table: bs4.element.Tag) -> pd.DataFrame:
                     colspan=colspan,
                 )
             )
+
         data.append(row)
+
     # at this point `data` should be a table (list of lists)
     # where each item is a TableEntry with row/colspan properties
     # expand TableEntries into a dense table
@@ -100,12 +102,7 @@ def extract_events(table: bs4.element.Tag) -> pd.DataFrame:
     for col in df.columns:
         if col not in wanted:
             df.drop(col, axis=1, inplace=True)
-
-    for i, row in enumerate(df.get("Date")):
-        if not re.match(r"[1-9][0-9]\s\w+\s\d{4}", row):
-            df.drop(index=i, axis=0, inplace=True)
-            
-
+    
     return df
 
 
