@@ -47,7 +47,7 @@ def find_articles(html: str, output=None) -> set:
         - (set) : a set with urls to all the articles found
     """
     urls = find_urls(html)
-    articles = set(filter(lambda url: re.search(r"https?:\/\/\w+\.\wikipedia.org\/wiki[\w+-=&\/?\.%]*", url), urls))
+    articles = set(filter(lambda url: re.search(r"https?:\/\/en\.\wikipedia.org\/wiki[\w+-=&\/?\.%\(\)]*", url), urls))
 
     # Write to file if wanted
     if output:
