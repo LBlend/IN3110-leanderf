@@ -15,7 +15,7 @@ The assignment consist mainly of 3 files, which depend on the other files. These
 - [time_planner.py](time_planner.py) - Fetches skiing events from wikipedia, displays them and can generate these tables in markdown.
 - [fetch_player_statistics.py](fetch_player_statistics.py) - Fetches NBA player statistics and plots it into nice little graphs.
 - [wiki_race_challenge.py](wiki_race_challenge.py) - TODO
-- [collect_dates.py](collect_dates.py) - TODO
+- [collect_dates.py](collect_dates.py) - Parses dates in various different formats and outputs it in `YYYY/mm/dddd`
 
 ## Testing
 
